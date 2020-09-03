@@ -34,7 +34,6 @@ describe "inspec supermarket" do
     _(out.stdout).must_include "Test Summary"
 
     _(out.stderr).must_equal ""
-    # skip_windows! # Breakage confirmed
     assert_exit_code 100, out
   end
 end
