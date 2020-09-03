@@ -116,7 +116,6 @@ describe "example inheritance profile" do
 
       _(out.stderr).must_equal ""
 
-      skip_windows! # Breakage confirmed - Only hits in parallel CI
       assert_exit_code 100, out
     end
   end
