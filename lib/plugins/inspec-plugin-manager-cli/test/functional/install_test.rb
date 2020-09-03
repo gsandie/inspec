@@ -70,7 +70,6 @@ class PluginManagerCliInstall < Minitest::Test
   def test_fail_install_from_nonexistant_path
     bad_path = File.join(project_fixtures_path, "none", "such", "inspec-test-fixture-nonesuch.rb")
     install_result = run_inspec_process_with_this_plugin("plugin install #{bad_path}")
-    skip_windows! # Breakage confirmed https://github.com/inspec/inspec/issues/5214
 
     error_message = install_result.stdout
     assert_includes error_message, "No such source code path"
@@ -85,7 +84,6 @@ class PluginManagerCliInstall < Minitest::Test
   def test_fail_install_from_path_with_wrong_name
     bad_path = File.join(project_fixtures_path, "plugins", "wrong-name", "lib", "wrong-name.rb")
     install_result = run_inspec_process_with_this_plugin("plugin install #{bad_path}")
-    skip_windows! # Breakage confirmed https://github.com/inspec/inspec/issues/5214
 
     error_message = install_result.stdout
     assert_includes error_message, "Invalid plugin name"
@@ -101,7 +99,6 @@ class PluginManagerCliInstall < Minitest::Test
   def test_fail_install_from_path_when_it_is_not_a_plugin
     bad_path = File.join(project_fixtures_path, "plugins", "inspec-egg-white-omelette", "lib", "inspec-egg-white-omelette.rb")
     install_result = run_inspec_process_with_this_plugin("plugin install #{bad_path}")
-    skip_windows! # Breakage confirmed https://github.com/inspec/inspec/issues/5214
 
     error_message = install_result.stdout
     assert_includes error_message, "Does not appear to be a plugin"
