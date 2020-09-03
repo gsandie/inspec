@@ -94,7 +94,10 @@ describe "inspec shell tests" do
     end
 
     it "runs anonymous tests that succeed (json output)" do
-      skip_windows! # Breakage confirmed
+      # skip_windows! # Breakage confirmed
+      # All skip_windows breakages have this output:
+      # Expected: ""
+      #   Actual: "C:/Users/some/path/inspec/inspec/lib/inspec/profile_context.rb:168:in `instance_eval': (eval):1: syntax error, unexpected tIDENTIFIER, expecting ')' (SyntaxError)\ndescribe file(\" \"foo/bar/baz) do it { should exis...\n                 ^~~\n(eval):1: syntax error, unexpected ')', expecting end-of-input\ndescribe file(\" \"foo/bar/baz) do it { should exist } end\n                            ^\n\tfrom C:/Users/some/path/inspec/inspec/lib/inspec/profile_context.rb:168:in `load_with_context'\n\tfrom C:/Users/some/path/inspec/inspec/lib/inspec/profile_context.rb:154:in `load_control_file'\n\tfrom C:/Users/some/path/inspec/inspec/lib/inspec/runner.rb:250:in `eval_with_virtual_profile'\n\tfrom C:/Users/some/path/inspec/inspec/lib/inspec/cli.rb:400:in `run_command'\n\tfrom C:/Users/some/path/inspec/inspec/lib/inspec/cli.rb:339:in `shell_func'\n\tfrom C:/Ruby/lib/ruby/gems/2.6.0/gems/thor-1.0.1/lib/thor/command.rb:27:in `run'\n\tfrom C:/Ruby/lib/ruby/gems/2.6.0/gems/thor-1.0.1/lib/thor/invocation.rb:127:in `invoke_command'\n\tfrom C:/Ruby/lib/ruby/gems/2.6.0/gems/thor-1.0.1/lib/thor.rb:392:in `dispatch'\n\tfrom C:/Ruby/lib/ruby/gems/2.6.0/gems/thor-1.0.1/lib/thor/base.rb:485:in `start'\n\tfrom C:/Users/some/path/inspec/inspec/lib/inspec/base_cli.rb:35:in `start'\n\tfrom C:/Users/some/path/inspec/inspec/inspec-bin/bin/inspec:11:in `<main>'\n"
       out = assert_shell_c("describe file(\"#{__FILE__}\") do it { should exist } end", 0, true)
       j = JSON.load(out.stdout)
       _(j.keys).must_include "version"
@@ -103,14 +106,14 @@ describe "inspec shell tests" do
     end
 
     it "runs anonymous tests that succeed" do
-      skip_windows! # Breakage confirmed
+      # skip_windows! # Breakage confirmed
       out = assert_shell_c("describe file(\"#{__FILE__}\") do it { should exist } end", 0)
       _(out.stdout).must_include "1 successful"
       _(out.stdout).must_include "0 failures"
     end
 
     it "runs anonymous tests that fail (json output)" do
-      skip_windows! # Breakage confirmed
+      # skip_windows! # Breakage confirmed
       out = assert_shell_c("describe file(\"foo/bar/baz\") do it { should exist } end", 100, true)
       j = JSON.load(out.stdout)
       _(j.keys).must_include "version"
@@ -119,14 +122,14 @@ describe "inspec shell tests" do
     end
 
     it "runs anonymous tests that fail" do
-      skip_windows! # Breakage confirmed
+      # skip_windows! # Breakage confirmed
       out = assert_shell_c("describe file(\"foo/bar/baz\") do it { should exist } end", 100)
       _(out.stdout).must_include "0 successful"
       _(out.stdout).must_include "1 failure"
     end
 
     it "runs controls with tests (json output)" do
-      skip_windows! # Breakage confirmed
+      # skip_windows! # Breakage confirmed
       out = assert_shell_c("control \"test\" do describe file(\"#{__FILE__}\") do it { should exist } end end", 0, true)
       j = JSON.load(out.stdout)
       _(j.keys).must_include "version"
@@ -135,14 +138,14 @@ describe "inspec shell tests" do
     end
 
     it "runs controls with tests" do
-      skip_windows! # Breakage confirmed
+      # skip_windows! # Breakage confirmed
       out = assert_shell_c("control \"test\" do describe file(\"#{__FILE__}\") do it { should exist } end end", 0)
       _(out.stdout).must_include "1 successful"
       _(out.stdout).must_include "0 failures"
     end
 
     it "runs controls with multiple tests (json output)" do
-      skip_windows! # Breakage confirmed
+      # skip_windows! # Breakage confirmed
       out = assert_shell_c("control \"test\" do describe file(\"#{__FILE__}\") do it { should exist } end; describe file(\"foo/bar/baz\") do it { should exist } end end", 100, true)
       j = JSON.load(out.stdout)
       _(j.keys).must_include "version"
@@ -151,7 +154,7 @@ describe "inspec shell tests" do
     end
 
     it "runs controls with multiple tests" do
-      skip_windows! # Breakage confirmed
+      # skip_windows! # Breakage confirmed
       out = assert_shell_c("control \"test\" do describe file(\"#{__FILE__}\") do it { should exist } end; describe file(\"foo/bar/baz\") do it { should exist } end end", 100)
       _(out.stdout).must_include "0 successful"
       _(out.stdout).must_include "1 failure"
