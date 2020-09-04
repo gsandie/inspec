@@ -29,7 +29,6 @@ describe "running profiles with git-based dependencies" do
     #       C:/Users/some/path/inspec/inspec/test/functional/git_fetcher_test.rb:29:in `each'
     #       C:/Users/some/path/inspec/inspec/test/functional/git_fetcher_test.rb:29:in `block (2 levels) in <top (required)>'"
 
-
     # We need a git repo for some of the profile test fixtures,
     # but we can't store those directly in git.
     # Here, one approach is to store the .git/ directory under a
